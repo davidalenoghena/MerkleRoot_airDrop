@@ -10,7 +10,9 @@ async function main() {
     );
 
     const merkleRootFac = await ethers.getContractFactory("merkleroot");
-    await merkleRootFac.deploy();
+    await merkleRootFac.deploy("0x0850aC7A0Db7468816f5EbaFb0F10f6E1208126B", "0x0480d37a1a94eaada396833ca0c616fe9b8dfa1a9c29e3ffc58520c8164d82c6");
+
+    //address _token, bytes32 _merkleRoot
 
     //const merkleRootDeploy = await merkleRootFac.deploy();
     //console.log("Deployed to:", etherStakeDeploy.getAddress());
