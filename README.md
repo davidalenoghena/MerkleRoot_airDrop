@@ -66,4 +66,4 @@ This will run all tests in the `test` directory.
 
 3. The user is using lisk sepolia chain
 
-4. The user knows how to use git and an experienced Web3 developer will test these codes
+4. The csv file will have a number that's acceptable for a merkle tree combination

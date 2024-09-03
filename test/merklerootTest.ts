@@ -1,7 +1,15 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
-const { MerkleTree } = require("merkletreejs");
-const keccak256 = require("keccak256");
+//const { expect } = require("chai");
+//const { ethers } = require("hardhat");
+//const { MerkleTree } = require("merkletreejs");
+//const keccak256 = require("keccak256");
+
+import {
+    time,
+    loadFixture,
+} from "@nomicfoundation/hardhat-toolbox/network-helpers";
+import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
+import { expect } from "chai";
+import hre, { ethers } from "hardhat";
 
 describe("merkleroot", function () {
     let MerkleAirdrop, merkleAirdrop, Token, token, owner, addr1, addr2, addr3;
@@ -10,11 +18,10 @@ describe("merkleroot", function () {
     const airdropData = [
         { account: "0x1111111111111111111111111111111111111111", amount: "100" },
         { account: "0x2222222222222222222222222222222222222222", amount: "200" },
-        { account: "0x3333333333333333333333333333333333333333", amount: "300" },
     ];
 
     before(async function () {
-        [owner, addr1, addr2, addr3] = await ethers.getSigners();
+        [owner, addr1, addr2] = await ethers.getSigners();
 
         // Deploy the ERC20 token
         Token = await ethers.getContractFactory("MockERC20");
