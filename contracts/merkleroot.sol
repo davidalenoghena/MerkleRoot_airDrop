@@ -3,12 +3,14 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-//import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract merkleroot {
+contract merkleRoot {
     IERC20 public token;
-    bytes32 public merkleRoot;
-    address owner;
+    bytes32 public merkleRoot_address;
+
+    address public owner;
+    address public tokenAddress;
+
     mapping(address => bool) public hasClaimed;
 
     event AirdropClaimed(address indexed account, uint256 amount);
@@ -16,7 +18,7 @@ contract merkleroot {
 
     constructor(address _token, bytes32 _merkleRoot) {
         owner = msg.sender;
-        token = IERC20(_token);
+        tokenAddress = _token;
         merkleRoot = _merkleRoot;
     }
 

@@ -1,7 +1,11 @@
-//Script for deploying the MerkleRoot.sol
+//Script for deploying the MerkleRoot.sol but used the latest one in ignition/module
 
 import { ethers } from "hardhat";
+
 async function main() {
+    const merkleRoot_address = "0x0480d37a1a94eaada396833ca0c616fe9b8dfa1a9c29e3ffc58520c8164d82c6";
+    const tokenAddress = "0x0850aC7A0Db7468816f5EbaFb0F10f6E1208126B";
+
     const [deployer] = await ethers.getSigners();
 
     console.log(
@@ -9,8 +13,9 @@ async function main() {
         deployer.address
     );
 
-    const merkleRootFac = await ethers.getContractFactory("merkleroot");
-    await merkleRootFac.deploy("0x0850aC7A0Db7468816f5EbaFb0F10f6E1208126B", "0x0480d37a1a94eaada396833ca0c616fe9b8dfa1a9c29e3ffc58520c8164d82c6"); //used the token from my last project
+    const merkleRootFac = await ethers.getContractFactory("merkleRoot");
+    // this is the constructor(address _token, bytes32 _merkleRoot)
+    await merkleRootFac.deploy(tokenAddress, merkleRoot_address); //used the token from my last project
 
     //address _token, bytes32 _merkleRoot
 
