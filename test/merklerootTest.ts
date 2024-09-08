@@ -11,6 +11,8 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import hre, { ethers } from "hardhat";
 
+const merkleRoot_address = "0x0480d37a1a94eaada396833ca0c616fe9b8dfa1a9c29e3ffc58520c8164d82c6";
+
 describe("merklerootTest", function () {
     //let MerkleAirdrop, merkleAirdrop, Token, token, owner, addr1, addr2, addr3;
     //let merkleTree, merkleRoot;
@@ -82,7 +84,28 @@ describe("merklerootTest", function () {
 
             expect(await merkleRootDeploy.tokenAddress()).to.equal(token);
         });
+
+        it("Should check if merkle root is correct", async function () {
+            const { merkleRootDeploy, owner, token } = await loadFixture(deploy_merkleRoot);
+
+            expect(await merkleRootDeploy.merkleRoot()).to.equal(merkleRoot_address);
+        });
     });
+    describe("Claim", function () {
+        it("Should claim successfully", async function () { });
+        it("Should emit an event after successful claiming", async function () { });
+    });
+    describe("Merkle Update", function () {
+        it("Should update the merkle root successfully", async function () { });
+        it("Should withdraw any remaining tokens successfully", async function () { });
+    });
+
+
+
+
+
+
+
     //it("Should deploy the contract with correct initial values", async function () {
     //    expect(await merkleAirdrop.token()).to.equal(token.address);
     //    expect(await merkleAirdrop.merkleRoot()).to.equal(merkleRoot);

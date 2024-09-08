@@ -1,12 +1,24 @@
 // SPDX-License-Identifier: MIT
+
+/*
+#Create a smart contract named MerkleAirdrop that:
+- Accepts an ERC20 token address and the Merkle root as constructor parameters.
+- Allows users to claim their airdrop by providing their address, the amount, 
+  and a valid Merkle proof.
+- Verifies the proof against the stored Merkle root.
+- Ensures that users can only claim their airdrop once.
+- Emits an event when a successful claim is made.
+- Provides functions for the contract owner to update the Merkle root 
+  and withdraw any remaining tokens after the airdrop is complete.
+*/
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 contract merkleRoot {
-    IERC20 public token;
-    bytes32 public merkleRoot_address;
+    //IERC20 public token;
+    bytes32 public merkleRoot;
 
     address public owner;
     address public tokenAddress;
@@ -38,7 +50,7 @@ contract merkleRoot {
         hasClaimed[msg.sender] = true;
 
         // Transfer tokens
-        require(token.transfer(msg.sender, amount), "Token transfer failed");
+        require(IERC20(tokenAddress).transfer(msg.sender, amount), "Token transfer failed");
 
         emit AirdropClaimed(msg.sender, amount);
     }
@@ -49,7 +61,7 @@ contract merkleRoot {
     }
 
     function withdrawRemainingTokens(address to) external onlyOwner {
-        uint256 balance = token.balanceOf(address(this));
-        require(token.transfer(to, balance), "Token transfer failed");
+        uint256 balance = IERC20(tokenAddress).balanceOf(address(this));
+        require(IERC20(tokenAddress).transfer(to, balance), "Token transfer failed");
     }
 }
